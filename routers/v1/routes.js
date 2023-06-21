@@ -4,6 +4,7 @@ const router = express.Router();
 const userCtrl = require("../../controllers/user.controller")
 const mscThesisCtrl = require("../../controllers/msc-thesis.controller")
 const phdThesisCtrl = require("../../controllers/phd-thesis.controller")
+const thesisCtrl = require("../../controllers/thesis.controller")
 const multer = require('multer');
 const path = require('path');
 
@@ -33,5 +34,25 @@ router.delete("/delete-user",userCtrl.deletUser);
 router.post("/add-msc-thesis",upload.single('pdf'),mscThesisCtrl.addThesis);
 
 router.get("/get-msc-thesis",mscThesisCtrl.getThesis);
+
+router.get("/get-msc-thesis-by-id",mscThesisCtrl.getThesisById);
+
+router.delete("/delete-msc-thesis",mscThesisCtrl.deleteThesis);
+
+router.post("/add-thesis",upload.single('pdf'),thesisCtrl.addThesis);
+
+router.get("/get-thesis",thesisCtrl.getThesis);
+
+router.get("/get-thesis-by-id",thesisCtrl.getThesisById);
+
+router.delete("/delete-thesis",thesisCtrl.deleteThesis);
+
+router.post("/add-phd-thesis",upload.single('pdf'),phdThesisCtrl.addThesis);
+
+router.get("/get-phd-thesis",phdThesisCtrl.getThesis);
+
+router.get("/get-phd-thesis-by-id",phdThesisCtrl.getThesisById);
+
+router.delete("/delete-phd-thesis",phdThesisCtrl.deleteThesis);
 
 module.exports = router;

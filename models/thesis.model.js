@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const mscThesisSchema = new mongoose.Schema({
+const thesisSchema = new mongoose.Schema({
     title: String,
     author: String,
     department: String,
@@ -10,10 +10,10 @@ const mscThesisSchema = new mongoose.Schema({
     pdf: String,
 });
 
-mscThesisSchema.virtual('url').get(function () {
+thesisSchema.virtual('url').get(function () {
     const baseUrl = 'http://localhost:3000'; // Replace with your base URL
     return `${baseUrl}/${this.pdf}`;
   });
 
-module.exports = mongoose.model("mscthesis",mscThesisSchema)
+module.exports = mongoose.model("thesis",thesisSchema)
 

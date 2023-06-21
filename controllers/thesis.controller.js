@@ -1,11 +1,11 @@
-const mscModel = require("../models/msc.model")
+const thesisModel = require("../models/thesis.model")
 
-const mscThesis = function () {
+const thesis = function () {
 
 }
 
 
-mscThesis.addThesis = async (req, res) => {
+thesis.addThesis = async (req, res) => {
     try {
         let data = req.body;
         console.log(data)
@@ -15,7 +15,7 @@ mscThesis.addThesis = async (req, res) => {
         const origianl_name = req.file.originalname;
         console.log(pdfPath)
 
-        const newProduct = await mscModel.create({
+        const newProduct = await thesisModel.create({
             title,
             author,
             department,
@@ -37,10 +37,10 @@ mscThesis.addThesis = async (req, res) => {
     }
 };
 
-mscThesis.getThesis = async (req, res, next) => {
+thesis.getThesis = async (req, res, next) => {
     console.log("getUserList")
     try {
-        var thesis = await mscModel.find(req.query)
+        var thesis = await thesisModel.find(req.query)
         console.log(thesis)
         thesis.map((el)=>{
             console.log(el.url)
@@ -54,11 +54,11 @@ mscThesis.getThesis = async (req, res, next) => {
     return res.status(200).send({status:true,message:'data list',data:thesis})
 }
 
-mscThesis.getThesisById = async (req, res, next) => {
+thesis.getThesisById = async (req, res, next) => {
     const {_id} = req.query;
     console.log(_id)
     try {
-        var thesis = await mscModel.findById({_id})
+        var thesis = await thesisModel.findById({_id})
         thesis.pdf = thesis.url; 
         if(thesis){
             var apiRes = {status:true,message:'thesis data',data:thesis}
@@ -73,10 +73,10 @@ mscThesis.getThesisById = async (req, res, next) => {
     return res.status(200).send(apiRes)
 }
 
-mscThesis.deleteThesis = async (req, res, next) => {
+thesis.deleteThesis = async (req, res, next) => {
     const { _id } = req.query;
     try {
-        var thesis = await mscModel.findByIdAndDelete(_id)
+        var thesis = await thesisModel.findByIdAndDelete(_id)
         if(thesis){
             var apiRes = {status:true,message:'User deleted successfully'}
         }else{
@@ -89,4 +89,4 @@ mscThesis.deleteThesis = async (req, res, next) => {
 }
 
 
-module.exports = mscThesis;
+module.exports = thesis;
