@@ -12,7 +12,7 @@ thesis.addThesis = async (req, res) => {
         console.log(req.file)
         const { title, author, department,year,course } = req.body;
         const pdfPath = req.file.path;
-        const origianl_name = req.file.originalname;
+        const originalname = req.file.originalname;
         console.log(pdfPath)
 
         const newProduct = await thesisModel.create({
@@ -21,12 +21,68 @@ thesis.addThesis = async (req, res) => {
             department,
             year,
             course,
-            pdf_origianl_name : origianl_name,
+            pdf_origianl_name : originalname,
             pdf : pdfPath,
         });
 
         if(newProduct){
             res.status(200).json({ status : true,message: 'Product added successfully' });
+        }else{
+            res.status(200).json({ status : false,message: 'Something went wrong' });
+        }
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+thesis.editThesis = async (req, res) => {
+    console.log("edit thesis")
+    try {
+        const { title, author, department,year } = req.body;
+        const {_id} =req.query;
+        
+        console.log(req.body)
+        console.log(_id)
+        const document = await thesisModel.findById(_id);
+        if(!req.file){
+            document.title = title;
+            document.author = author;
+            document.department = department;
+            document.year = year;
+
+            var updatedThesis = await document.save();
+
+            // const pdfPath = req.file.path;
+            // const originalname = req.file.originalname;
+            // var updateProduct = await thesisModel.save(req.query,{
+            //     title,
+            //     author,
+            //     department,
+            //     year,
+            //     course,
+            //     pdf_origianl_name : originalname,
+            //     pdf : pdfPath,
+            // });
+        }else{
+            const pdfPath = req.file.path;
+            const originalname = req.file.originalname;
+            document.title = title;
+            document.author = author;
+            document.department = department;
+            document.year = year;
+            document.pdf_origianl_name = originalname
+            document.pdf = pdfPath
+
+            var updatedThesis = await document.save();
+        }
+        console.log(updatedThesis)
+        
+
+        if(updatedThesis){
+            res.status(200).json({ status : true,message: 'Product updated successfully' });
         }else{
             res.status(200).json({ status : false,message: 'Something went wrong' });
         }

@@ -41,6 +41,8 @@ router.delete("/delete-msc-thesis",mscThesisCtrl.deleteThesis);
 
 router.post("/add-thesis",upload.single('pdf'),thesisCtrl.addThesis);
 
+router.put("/edit-thesis",upload.single('pdf'),thesisCtrl.editThesis);
+
 router.get("/get-thesis",thesisCtrl.getThesis);
 
 router.get("/get-thesis-by-id",thesisCtrl.getThesisById);
