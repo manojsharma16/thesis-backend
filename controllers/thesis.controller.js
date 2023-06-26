@@ -26,7 +26,7 @@ thesis.addThesis = async (req, res) => {
         });
 
         if(newProduct){
-            res.status(200).json({ status : true,message: 'Product added successfully' });
+            res.status(200).json({ status : true,message: 'Thesis added successfully' });
         }else{
             res.status(200).json({ status : false,message: 'Something went wrong' });
         }
@@ -82,7 +82,7 @@ thesis.editThesis = async (req, res) => {
         
 
         if(updatedThesis){
-            res.status(200).json({ status : true,message: 'Product updated successfully' });
+            res.status(200).json({ status : true,message: 'Thesis updated successfully' });
         }else{
             res.status(200).json({ status : false,message: 'Something went wrong' });
         }
@@ -134,9 +134,9 @@ thesis.deleteThesis = async (req, res, next) => {
     try {
         var thesis = await thesisModel.findByIdAndDelete(_id)
         if(thesis){
-            var apiRes = {status:true,message:'User deleted successfully'}
+            var apiRes = {status:true,message:'Thesis deleted successfully'}
         }else{
-            var apiRes = {status:false, message:'User not found'}
+            var apiRes = {status:false, message:'Thesis not found'}
         }
     } catch (error) {
         return res.status(500).send({status:false,message:'Something went wrong.'})

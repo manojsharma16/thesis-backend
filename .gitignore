@@ -15,9 +15,6 @@ build/
 out/
 public/
 
-# Ignore environment variables
-.env
-
 # Ignore IDE and editor-specific files
 .vscode/
 .idea/
